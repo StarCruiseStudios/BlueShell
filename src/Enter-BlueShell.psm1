@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# <copyright file="Initialize-BlueShell.ps1" company="Star Cruise Studios LLC">
+# <copyright file="Enter-BlueShell.psm1" company="Star Cruise Studios LLC">
 #     Copyright 2022 Star Cruise Studios LLC.
 #
 #     Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,18 @@
 # </copyright>
 # ------------------------------------------------------------------------------
 
-Function Initialize-BlueShell {
-    . $BlueShellRoot\Enter-BlueShell.ps1
-}
-Set-Alias -Name inbs -Value Initialize-BlueShell
+Set-Variable BlueShellRoot -Value $PSScriptRoot -Force -Option ReadOnly -Scope:Global
+Set-Variable BlueShellVersion -Value "0.0.2-220222" -Force -Option ReadOnly -Scope:Global
+Set-Variable BlueShellBranch -Value "main" -Force -Option ReadOnly -Scope:Global
+
+. $BlueShellRoot/internal/bootstrap/Initialize-BlueShell
+
+Write-BlueShellBanner
+
+Write-KeyValue BlueShellRoot $BlueShellRoot
+Write-KeyValue BlueShellVersion $BlueShellVersion
+Write-KeyValue BlueShellBranch $BlueShellBranch
+
+Export-ModuleMember -Variable 'BlueShellRoot'
+Export-ModuleMember -Variable 'BlueShellVersion'
+Export-ModuleMember -Variable 'BlueShellBranch'

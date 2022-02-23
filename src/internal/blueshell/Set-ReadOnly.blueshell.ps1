@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# <copyright file="Enter-BlueShell.ps1" company="Star Cruise Studios LLC">
+# <copyright file="Set-ReadOnly.blueshell.ps1" company="Star Cruise Studios LLC">
 #     Copyright 2022 Star Cruise Studios LLC.
 #
 #     Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,13 +16,34 @@
 # </copyright>
 # ------------------------------------------------------------------------------
 
-Set-Variable BlueShellRoot -Force -Option ReadOnly `
-    -Value (Split-Path -Path $PSCommandPath -Parent)
-Set-Variable BlueShellVersion -Force -Option ReadOnly `
-    -Value "0.0.1-220220"
-Set-Variable BlueShellBranch -Force -Option ReadOnly `
-    -Value "main"
+<#
+.SYNOPSIS
+Sets a read only variable.
 
-./Write-Banner
+.DESCRIPTION
+Sets a read only variable in the global scope. A read only variable cannot be 
+accidentally overwritten using the $Variable notation, but can be re-written
+by invoking the Set-ReadOnly function a second time.
 
-. ./Initialize-BlueShell
+.PARAMETER Name
+The name of the variable.
+
+.PARAMETER Value
+The value to display
+
+.INPUTS
+None. Piped values are not used.
+
+.OUTPUTS
+No value is output.
+#>
+Function Set-ReadOnly(
+    [String] $Name, 
+    [String] $Value
+) {
+    Set-Variable $Name -Value $Value -Force -Option ReadOnly -Scope:Global
+    $var = Get-Variable $Name
+    Write-KeyValue $var.Name $var.Value
+}
+
+Export-ModuleMember -Function 'Set-ReadOnly'
