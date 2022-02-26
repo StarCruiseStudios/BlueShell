@@ -1,4 +1,4 @@
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # <copyright file="Enter-BlueShell.psm1" company="Star Cruise Studios LLC">
 #     Copyright 2022 Star Cruise Studios LLC.
 #
@@ -14,11 +14,12 @@
 #     See the License for the specific language governing permissions and
 #     limitations under the License.
 # </copyright>
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
 Set-Variable BlueShellRoot -Value $PSScriptRoot -Force -Option ReadOnly -Scope:Global
 Set-Variable BlueShellVersion -Value "0.0.2-220222" -Force -Option ReadOnly -Scope:Global
 Set-Variable BlueShellBranch -Value "main" -Force -Option ReadOnly -Scope:Global
+Set-Variable BlueShellExtensionRoot -Value $BlueShellRoot/extensions
 
 . $BlueShellRoot/internal/bootstrap/Initialize-BlueShell
 

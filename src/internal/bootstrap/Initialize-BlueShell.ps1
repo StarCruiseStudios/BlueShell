@@ -1,4 +1,4 @@
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # <copyright file="Initialize-BlueShell.ps1" company="Star Cruise Studios LLC">
 #     Copyright 2022 Star Cruise Studios LLC.
 #
@@ -14,11 +14,19 @@
 #     See the License for the specific language governing permissions and
 #     limitations under the License.
 # </copyright>
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
 Write-Host "Bootstrapping..."
 
 . $BlueShellRoot/internal/bootstrap/Import-AutoScripts.ps1
 . Import-AutoScripts $BlueShellRoot/internal/blueshell
+
+$global:BlueShellExtensions = [System.Collections.ArrayList]::new()
+. Import-AutoScripts $BlueShellExtensionRoot
+
+$extensionsToImport = [System.Collections.ArrayList]::new($global:BlueShellExtensions)
+foreach ($extension in $extensionsToImport) {
+    . Import-AutoScripts $extension
+}
 
 Write-Host "...Finished Bootstrapping."
