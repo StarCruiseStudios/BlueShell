@@ -30,7 +30,7 @@ None. Piped values are not used.
 No value is output.
 #>
 Function Update-BlueShell {
-    import-module $BlueShellRoot\Enter-BlueShell.psm1 -Force
+    Import-Module $BlueShellRoot\Enter-BlueShell.psm1 -Force
 }
 Set-Alias -Name reload -Value Update-BlueShell
 

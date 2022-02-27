@@ -48,7 +48,7 @@ Function Import-AutoScripts {
         [String] $Extension = ".blueshell.ps1"
     )
 
-    $childScripts = get-childitem $RootDir\*$Extension -recurse -force
+    $childScripts = Get-ChildItem $RootDir\*$Extension -recurse -force
     foreach ($child in $childScripts) {
         Write-AutoScriptImport $child
         . $child

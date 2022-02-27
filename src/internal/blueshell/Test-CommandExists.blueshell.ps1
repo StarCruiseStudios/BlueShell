@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# <copyright file="Initialize-BlueShell.ps1" company="Star Cruise Studios LLC">
+# <copyright file="Test-CommandExists.blueshell.ps1" company="Star Cruise Studios LLC">
 #     Copyright 2022 Star Cruise Studios LLC.
 #
 #     Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,21 +16,13 @@
 # </copyright>
 # ------------------------------------------------------------------------------
 
-Write-Host "Bootstrapping..."
-
-. $BlueShellRoot/internal/bootstrap/Import-AutoScripts.ps1
-. Import-AutoScripts $BlueShellRoot/internal/blueshell
-
-if (Test-Path $BlueShellExtensionRoot) {
-    $global:BlueShellExtensions = [System.Collections.ArrayList]::new()
-    . Import-AutoScripts $BlueShellExtensionRoot
-
-    $extensionsToImport = [System.Collections.ArrayList]::new($global:BlueShellExtensions)
-    foreach ($extension in $extensionsToImport) {
-        . Import-AutoScripts $extension
+Function Test-CommandExists($command) {
+    try {
+        $output = get-command $command -ErrorAction Stop
+        Write-Output $True
+    } catch {
+        Write-Output $False
     }
-} else {
-    Write-Host "No Extensions Found."
 }
 
-Write-Host "...Finished Bootstrapping."
+Export-ModuleMember -Function "Test-CommandExists"

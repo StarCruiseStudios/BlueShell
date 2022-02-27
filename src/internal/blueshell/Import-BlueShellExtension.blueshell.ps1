@@ -1,4 +1,4 @@
-# -----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # <copyright file="Import-BlueShellExtension.blueshell.ps1" company="Star Cruise Studios LLC">
 #     Copyright 2022 Star Cruise Studios LLC.
 #
@@ -14,7 +14,7 @@
 #     See the License for the specific language governing permissions and
 #     limitations under the License.
 # </copyright>
-# -----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 <#
 .SYNOPSIS
@@ -48,7 +48,7 @@ Function Import-BlueShellExtension(
     $contents = @"
 #
 # Import BlueShell Extension $ExtensionName
-#   Imported using `ImportBlueShellExtension`
+#   Imported using `Import-BlueShellExtension`
 #   BlueShell V$BlueShellVersion
 #
 
@@ -56,7 +56,7 @@ Function Import-BlueShellExtension(
 
 "@
 
-    New-Item $filePath -ItemType File -Value $contents
+    New-Item $filePath -ItemType File -Value $contents -Force
 }
 
 Export-ModuleMember -Function 'Import-BlueShellExtension'
