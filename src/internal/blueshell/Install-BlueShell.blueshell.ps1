@@ -1,4 +1,4 @@
-# -----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # <copyright file="Install-BlueShell.blueshell.ps1" company="Star Cruise Studios LLC">
 #     Copyright 2022 Star Cruise Studios LLC.
 #
@@ -14,7 +14,8 @@
 #     See the License for the specific language governing permissions and
 #     limitations under the License.
 # </copyright>
-# -----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+
 <#
 .SYNOPSIS
 Installs BlueShell.
@@ -38,7 +39,7 @@ Function Install-BlueShell {
 
     if (!(Test-Path $Profile.CurrentUserAllHosts)) {
         New-Item -Path $Profile.CurrentUserAllHosts -Type File -Force
-        Add-Content $Profile.CurrentUserAllHosts "Import-Module $BlueShellRoot/Enter-BlueShell.psm1 -force"
+        Add-Content $Profile.CurrentUserAllHosts "Import-Module $BlueShellRoot/Enter-BlueShell.psm1 -force -Global"
     }
 }
 
