@@ -39,11 +39,14 @@ No value is output.
 #>
 Function Set-ReadOnly(
     [String] $Name, 
-    [String] $Value
+    [String] $Value,
+    [Switch] $silent
 ) {
     Set-Variable $Name -Value $Value -Force -Option ReadOnly -Scope:Global
-    $var = Get-Variable $Name
-    Write-KeyValue $var.Name $var.Value
+    if (!$silent) {
+        $var = Get-Variable $Name
+        Write-KeyValue $var.Name $var.Value
+    }
 }
 
 Export-ModuleMember -Function 'Set-ReadOnly'

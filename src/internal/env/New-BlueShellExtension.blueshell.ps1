@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# <copyright file="Import-BlueShellExtension.blueshell.ps1" company="Star Cruise Studios LLC">
+# <copyright file="New-BlueShellExtension.blueshell.ps1" company="Star Cruise Studios LLC">
 #     Copyright 2022 Star Cruise Studios LLC.
 #
 #     Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,11 +18,12 @@
 
 <#
 .SYNOPSIS
-Imports a directory as a BlueShell extension.
+Creates a BlueShell extension from the given directory.
 
 .DESCRIPTION
-Imports the directory at the provided path as a BlueShell extension that will 
-automatically get imported when starting BlueShell.
+Creates a BlueShell extension from the directory at the provided path. The 
+*.blueshell.ps1 scripts in the directory will automatically get imported when
+starting BlueShell.
 
 .PARAMETER ExtensionName
 The name of the extension.
@@ -36,8 +37,8 @@ None. Piped values are not used.
 .OUTPUTS
 The newly created extension import file.
 #>
-Function Import-BlueShellExtension(
-    [String] $ExtensionName,
+Function New-BlueShellExtension(
+    [Parameter(Mandatory=$true)][String] $ExtensionName,
     [String] $ExtensionPath = "."
 ) {
     $fileName = "Import-${ExtensionName}BlueShell.blueshell.ps1"
@@ -59,4 +60,4 @@ Function Import-BlueShellExtension(
     New-Item $filePath -ItemType File -Value $contents -Force
 }
 
-Export-ModuleMember -Function 'Import-BlueShellExtension'
+Export-ModuleMember -Function 'New-BlueShellExtension'

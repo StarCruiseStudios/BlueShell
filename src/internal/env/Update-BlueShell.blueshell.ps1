@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# <copyright file="Enter-BlueShell.psm1" company="Star Cruise Studios LLC">
+# <copyright file="Update-BlueShell.blueshell.ps1" company="Star Cruise Studios LLC">
 #     Copyright 2022 Star Cruise Studios LLC.
 #
 #     Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,19 +16,22 @@
 # </copyright>
 # ------------------------------------------------------------------------------
 
-Set-Variable BlueShellRoot -Value $PSScriptRoot -Force -Option ReadOnly -Scope:Global
-Set-Variable BlueShellVersion -Value "0.0.2-220222" -Force -Option ReadOnly -Scope:Global
-Set-Variable BlueShellBranch -Value "main" -Force -Option ReadOnly -Scope:Global
-Set-Variable BlueShellExtensionRoot -Value $BlueShellRoot/extensions
+<#
+.SYNOPSIS
+Reloads the BlueShell environment.
 
-. $BlueShellRoot/internal/bootstrap/Initialize-BlueShell.ps1
+.DESCRIPTION
+Reloads the blueshell environment by re-importing the module.
 
-Write-BlueShellBanner
+.INPUTS
+None. Piped values are not used.
 
-Write-KeyValue BlueShellRoot $BlueShellRoot
-Write-KeyValue BlueShellVersion $BlueShellVersion
-Write-KeyValue BlueShellBranch $BlueShellBranch
+.OUTPUTS
+No value is output.
+#>
+Function Update-BlueShell {
+    Import-Module $BlueShellRoot\BlueShell.psm1 -Force -Global
+}
+Set-Alias -Name reload -Value Update-BlueShell
 
-Export-ModuleMember -Variable 'BlueShellRoot'
-Export-ModuleMember -Variable 'BlueShellVersion'
-Export-ModuleMember -Variable 'BlueShellBranch'
+Export-ModuleMember -Function 'Update-BlueShell' -Alias 'reload'

@@ -16,7 +16,6 @@
 # </copyright>
 # ------------------------------------------------------------------------------
 
-. $BlueShellRoot/internal/bootstrap/Write-AutoScriptImport.ps1
 Write-AutoScriptImport "Import-AutoScripts"
 
 <#

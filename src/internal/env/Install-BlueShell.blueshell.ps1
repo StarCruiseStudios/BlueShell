@@ -53,7 +53,7 @@ Function Install-BlueShell {
     if (-not $installedOnAllHosts) {
         Add-Content $Profile.CurrentUserAllHosts @"
 Function Start-BlueShell() {
-    Import-Module $BlueShellRoot\Enter-BlueShell.psm1 -Force -Global
+    Import-Module $BlueShellRoot\BlueShell.psm1 -Force -Global
 }
 "@
     }

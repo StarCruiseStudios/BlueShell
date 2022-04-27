@@ -18,15 +18,20 @@
 
 Write-Host "Bootstrapping..."
 
+# Load Bootstrapping scripts.
+. $BlueShellRoot/internal/bootstrap/Write-AutoScriptImport.ps1
 . $BlueShellRoot/internal/bootstrap/Import-AutoScripts.ps1
+
+# Import Blueshell scripts.
+. Import-AutoScripts $BlueShellRoot/internal/env
 . Import-AutoScripts $BlueShellRoot/internal/blueshell
 
+# Import extensions.
 if (Test-Path $BlueShellExtensionRoot) {
     $global:BlueShellExtensions = [System.Collections.ArrayList]::new()
     . Import-AutoScripts $BlueShellExtensionRoot
 
-    $extensionsToImport = [System.Collections.ArrayList]::new($global:BlueShellExtensions)
-    foreach ($extension in $extensionsToImport) {
+    foreach ($extension in $global:BlueShellExtensions) {
         . Import-AutoScripts $extension
     }
 } else {

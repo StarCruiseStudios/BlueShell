@@ -17,7 +17,9 @@
 # ------------------------------------------------------------------------------
 
 Function Invoke-BlueShellCommand($Command) {
-    Write-Output $Command
+    Write-Host -ForegroundColor Blue "----------"
+    Write-Host -ForegroundColor DarkCyan $Command
+    Write-Host -ForegroundColor Blue "----------"
     Invoke-Expression $Command
 }
 
