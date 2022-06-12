@@ -106,3 +106,11 @@ showing the values of variables or constants that are defined.
 > Write-KeyValue "MyVar" $MyVar
 MyVar: 10
 ```
+
+### Write-Message
+`Write-Message` is used to print a message. This is useful for 
+showing a message to the user with a color highlighting.
+```
+> Write-Message "Hello!"
+Hello!
+```
