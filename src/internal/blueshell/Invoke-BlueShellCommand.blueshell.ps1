@@ -16,11 +16,26 @@
 # </copyright>
 # ------------------------------------------------------------------------------
 
-Function Invoke-BlueShellCommand($Command) {
+Function Invoke-BlueShellCommand(
+    [Parameter(Mandatory=$true)][string] $Command,
+    [string] $WorkingDirectory = ""
+) {
+    $workingDirectorySpecified = $WorkingDirectory.Length -gt 0
+
     Write-Host -ForegroundColor Blue "----------"
     Write-Host -ForegroundColor DarkCyan $Command
+    if ($workingDirectorySpecified) { 
+        $originalLocation = $PWD.Path
+        Set-Location -Path $WorkingDirectory
+        Write-Host -ForegroundColor DarkBlue ("  > " + $WorkingDirectory)
+    }
     Write-Host -ForegroundColor Blue "----------"
+
     Invoke-Expression $Command
+    
+    if ($workingDirectorySpecified) { 
+        Set-Location -Path $originalLocation
+    }
 }
 
 Export-ModuleMember -Function "Invoke-BlueShellCommand"
