@@ -50,7 +50,7 @@ No value is output. The message is sent directly to the host.
 Function Write-KeyValue(
     [String] $Key, 
     [String] $Value, 
-    [ConsoleColor] $KeyColor = [ConsoleColor]::Red, 
+    [ConsoleColor] $KeyColor = [ConsoleColor]::Cyan, 
     [System.ConsoleColor] $ValueColor = [ConsoleColor]::Yellow,
     [String] $Separator = ": "
 ) {
