@@ -17,7 +17,7 @@
 # ------------------------------------------------------------------------------
 
 Set-Variable BlueShellRoot -Value $PSScriptRoot -Force -Option ReadOnly -Scope:Global
-Set-Variable BlueShellVersion -Value "0.0.3-220426" -Force -Option ReadOnly -Scope:Global
+Set-Variable BlueShellVersion -Value "0.0.4-230803" -Force -Option ReadOnly -Scope:Global
 Set-Variable BlueShellBranch -Value "main" -Force -Option ReadOnly -Scope:Global
 Set-Variable BlueShellExtensionRoot -Value $BlueShellRoot/extensions
 

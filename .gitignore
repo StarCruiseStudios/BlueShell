@@ -11,3 +11,6 @@
 
 # BlueShell extension repositories
 src/extensions/*
+
+# BlueShell machine config
+machine_config.ps1

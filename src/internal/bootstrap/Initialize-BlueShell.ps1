@@ -26,6 +26,17 @@ Write-Host "Bootstrapping..."
 . Import-AutoScripts $BlueShellRoot/internal/env
 . Import-AutoScripts $BlueShellRoot/internal/blueshell
 
+# Create/Load Machine Config.
+Set-ReadOnly BlueShellMachineConfig "$BlueShellRoot\machine_config.ps1"
+if (-not (Test-Path $BlueShellMachineConfig)) {
+    Write-Host "No Machine Config found at $BlueShellMachineConfig. Creating..."
+    New-Item -Path $BlueShellMachineConfig -ItemType File -Force -Value ""
+}
+
+Write-AutoScriptImport $BlueShellMachineConfig
+. $BlueShellMachineConfig
+Update-MachineConfig
+
 # Import extensions.
 if (Test-Path $BlueShellExtensionRoot) {
     $global:BlueShellExtensions = [System.Collections.ArrayList]::new()
