@@ -29,6 +29,16 @@ The message to display.
 .PARAMETER MessageColor
 The color to use when displaying the message strings. Defaults to White.
 
+.EXAMPLE
+# Basic usage with default color
+Write-Message "Operation completed successfully"
+# Output: Operation completed successfully (in White)
+
+.EXAMPLE
+# Using a custom color
+Write-Message "Warning: Low disk space" -MessageColor Yellow
+# Output: Warning: Low disk space (in Yellow)
+
 .INPUTS
 None. Piped values are not used.
 

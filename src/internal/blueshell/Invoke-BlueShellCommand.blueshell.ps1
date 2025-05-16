@@ -16,8 +16,57 @@
 # </copyright>
 # ------------------------------------------------------------------------------
 
+<#
+.SYNOPSIS
+Executes a command while displaying it to the console.
+
+.DESCRIPTION
+Executes a PowerShell command while displaying it to the console with formatting.
+This is particularly useful for do-nothing scripts where you want to show the
+operator what command is being executed. The command is displayed with visual
+separators and optional working directory information.
+
+.PARAMETER Command
+The PowerShell command to execute. This parameter is mandatory.
+
+.PARAMETER WorkingDirectory
+Optional. The directory to execute the command in. If specified, the function will:
+1. Change to this directory before executing the command
+2. Display the working directory in the output
+3. Return to the original directory after execution
+
+.EXAMPLE
+# Execute a simple command
+Invoke-BlueShellCommand 'Write-Host "Hello World"'
+# Output:
+# ----------
+# Write-Host "Hello World"
+# ----------
+# Hello World
+
+.EXAMPLE
+# Execute a command in a specific directory
+Invoke-BlueShellCommand 'Get-ChildItem' 'C:\temp'
+# Output:
+# ----------
+# Get-ChildItem
+#   > C:\temp
+# ----------
+# [directory contents...]
+
+.INPUTS
+None. This function does not accept pipeline input.
+
+.OUTPUTS
+Returns the output of the executed command.
+
+.NOTES
+The command is executed using Invoke-Expression, so proper care should be taken
+with the command input to avoid security risks.
+#>
+
 Function Invoke-BlueShellCommand(
-    [Parameter(Mandatory=$true)][string] $Command,
+    [Parameter(Mandatory = $true)][string] $Command,
     [string] $WorkingDirectory = ""
 ) {
     $workingDirectorySpecified = $WorkingDirectory.Length -gt 0

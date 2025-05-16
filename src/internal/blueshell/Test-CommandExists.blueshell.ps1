@@ -16,11 +16,50 @@
 # </copyright>
 # ------------------------------------------------------------------------------
 
+<#
+.SYNOPSIS
+Tests if a command exists in the current PowerShell session.
+
+.DESCRIPTION
+Checks whether a given command (cmdlet, function, alias, or executable) exists
+and is accessible in the current PowerShell session. This is useful for
+validating prerequisites or checking if specific tools are installed.
+
+.PARAMETER command
+The name of the command to check for. This can be:
+- A PowerShell cmdlet or function name
+- An executable name that exists in the system PATH
+- A PowerShell alias
+
+.EXAMPLE
+# Check if git is installed
+if (Test-CommandExists 'git') {
+    Write-Host "Git is installed"
+} else {
+    Write-Host "Git is not installed"
+}
+
+.EXAMPLE
+# Check if a PowerShell cmdlet exists
+Test-CommandExists 'Get-Process'
+# Output: True
+
+.INPUTS
+None. This function does not accept pipeline input.
+
+.OUTPUTS
+System.Boolean. Returns $True if the command exists, $False otherwise.
+
+.NOTES
+The function uses Get-Command internally with error suppression for clean output.
+#>
+
 Function Test-CommandExists($command) {
     try {
         $output = get-command $command -ErrorAction Stop
         Write-Output $True
-    } catch {
+    }
+    catch {
         Write-Output $False
     }
 }
