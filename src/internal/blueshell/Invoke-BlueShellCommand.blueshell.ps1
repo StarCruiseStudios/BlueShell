@@ -27,7 +27,7 @@ operator what command is being executed. The command is displayed with visual
 separators and optional working directory information.
 
 .PARAMETER Command
-The PowerShell command to execute. This parameter is mandatory.
+The PowerShell command to execute. This parameter is mandatory and cannot be null or empty.
 
 .PARAMETER WorkingDirectory
 Optional. The directory to execute the command in. If specified, the function will:
@@ -38,21 +38,10 @@ Optional. The directory to execute the command in. If specified, the function wi
 .EXAMPLE
 # Execute a simple command
 Invoke-BlueShellCommand 'Write-Host "Hello World"'
-# Output:
-# ----------
-# Write-Host "Hello World"
-# ----------
-# Hello World
 
 .EXAMPLE
 # Execute a command in a specific directory
 Invoke-BlueShellCommand 'Get-ChildItem' 'C:\temp'
-# Output:
-# ----------
-# Get-ChildItem
-#   > C:\temp
-# ----------
-# [directory contents...]
 
 .INPUTS
 None. This function does not accept pipeline input.
@@ -61,12 +50,20 @@ None. This function does not accept pipeline input.
 Returns the output of the executed command.
 
 .NOTES
-The command is executed using Invoke-Expression, so proper care should be taken
-with the command input to avoid security risks.
+The command is executed using Invoke-Expression.
 #>
 
 Function Invoke-BlueShellCommand(
-    [Parameter(Mandatory = $true)][string] $Command,
+    [Parameter(Mandatory = $true)]
+    [ValidateNotNullOrEmpty()]
+    [string] $Command,
+    
+    [ValidateScript({
+        if ($_ -and -not (Test-Path $_ -PathType Container)) {
+            throw "Working directory '$_' does not exist."
+        }
+        return $true
+    })]
     [string] $WorkingDirectory = ""
 ) {
     $workingDirectorySpecified = $WorkingDirectory.Length -gt 0
@@ -80,10 +77,15 @@ Function Invoke-BlueShellCommand(
     }
     Write-Host -ForegroundColor Blue "----------"
 
-    Invoke-Expression $Command
-    
-    if ($workingDirectorySpecified) { 
-        Set-Location -Path $originalLocation
+    try {
+        Invoke-Expression $Command
+    } catch {
+        Write-Error "Command execution failed: $($_.Exception.Message)"
+        throw
+    } finally {
+        if ($workingDirectorySpecified) { 
+            Set-Location -Path $originalLocation
+        }
     }
 }
 
