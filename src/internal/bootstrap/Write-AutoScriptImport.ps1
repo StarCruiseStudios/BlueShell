@@ -32,6 +32,6 @@ None. Piped values are not used.
 No value is output. The message is sent directly to the host.
 #>
 Function Write-AutoScriptImport([String] $FileName) {
-    Write-Host "Loading - " -ForegroundColor Blue -NoNewline
-    Write-Host $FileName -ForegroundColor Green
+    Write-Message "Loading - " -ForegroundColor Blue -NoNewline
+    Write-Message $FileName -ForegroundColor Green
 }

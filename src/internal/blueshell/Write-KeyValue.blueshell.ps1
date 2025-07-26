@@ -54,8 +54,8 @@ Function Write-KeyValue(
     [System.ConsoleColor] $ValueColor = [ConsoleColor]::Yellow,
     [String] $Separator = ": "
 ) {
-    Write-Host "$Key$Separator" -ForegroundColor $KeyColor -NoNewline
-    Write-Host $Value -ForegroundColor $ValueColor
+    Write-Message "$Key$Separator" -ForegroundColor $KeyColor -NoNewline
+    Write-Message $Value -ForegroundColor $ValueColor
 }
 
 Export-ModuleMember -Function 'Write-KeyValue'

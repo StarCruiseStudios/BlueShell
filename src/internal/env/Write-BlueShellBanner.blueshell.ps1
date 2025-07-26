@@ -39,39 +39,39 @@ Function Write-BlueShellBanner {
 
     # Print the small banner if the display buffer is too narrow.
     if ($BufferWidth -lt $BannerWidth) {
-        Write-Host "------"                                -ForegroundColor White
-        Write-Host "BlueShell"                             -ForegroundColor Blue
-        Write-Host "v$BlueShellVersion [$BlueShellBranch]" -ForegroundColor DarkCyan
-        Write-Host "PowerShell v$PowerShellVersion"       -ForegroundColor DarkGreen
-        Write-Host "------"                                -ForegroundColor White
-        Write-Host ""
+        Write-Message "------"                                -ForegroundColor White
+        Write-Message "BlueShell"                             -ForegroundColor Blue
+        Write-Message "v$BlueShellVersion [$BlueShellBranch]" -ForegroundColor DarkCyan
+        Write-Message "PowerShell v$PowerShellVersion"       -ForegroundColor DarkGreen
+        Write-Message "------"                                -ForegroundColor White
+        Write-Message ""
     } else {
         $bannerIndentSize = ($BufferWidth - $BannerWidth) / 2 -as [int]        
         $bannerIndent = [System.String]::new(' ', $bannerIndentSize)
 
-        Write-Host "$bannerIndent================================================================================" -ForegroundColor White
-        Write-Host "$bannerIndent                                                                                " -ForegroundColor Blue
-        Write-Host "$bannerIndent                                                      __                _       " -ForegroundColor Blue
-        Write-Host "$bannerIndent                                                     /. }             _/ |      " -ForegroundColor Blue
-        Write-Host "$bannerIndent                                                  ,-'/ \ \         _./   /\     " -ForegroundColor Blue
-        Write-Host "$bannerIndent      ____  __   __  ________                   .'  /   \/       ./     / |     " -ForegroundColor Blue
-        Write-Host "$bannerIndent     / __ \/ /  / / / / ____/         ._       /__-''''-.\_    ./      ' /\     " -ForegroundColor Blue
-        Write-Host "$bannerIndent    / __  / /  / / / / __/             \ ''--:'   '\_______.\./         ' |     " -ForegroundColor Blue
-        Write-Host "$bannerIndent   / /_/ / /__/ /_/ / /___           ___\     |    / .''''.\/           _/|     " -ForegroundColor Blue
-        Write-Host "$bannerIndent  /_____/_____\____/_____/           \  /\__,-'   /  |  ' ||           _./      " -ForegroundColor Blue
-        Write-Host "$bannerIndent       _____ __  __________    __    .\/-----..-''\   '--' |          '/        " -ForegroundColor Blue
-        Write-Host "$bannerIndent      / ___// / / / ____/ /   / /   |          ''--\,       \_____..-'          " -ForegroundColor Blue
-        Write-Host "$bannerIndent      \__ \/ /_/ / __/ / /   / /    |   ,.._         ''---./...\-   |           " -ForegroundColor Blue
-        Write-Host "$bannerIndent     ___/ / __  / /___/ /___/ /___   '-| |   |'--._                .'           " -ForegroundColor Blue
-        Write-Host "$bannerIndent    /____/_/ /_/_____/_____/_____/      \ \_/ ,' |  '';--.______.-'             " -ForegroundColor Blue
-        Write-Host "$bannerIndent                                         '---'    ';''    /   /./               " -ForegroundColor Blue
-        Write-Host "$bannerIndent                                           '-.___.'     ,* ,.''                 " -ForegroundColor Blue
-        Write-Host "$bannerIndent                                               ''------'-''                     " -ForegroundColor Blue
-        Write-Host "$bannerIndent                                                                                " -ForegroundColor Blue
-        Write-Host "$bannerIndent================================================================================" -ForegroundColor White
-        Write-Host "$bannerIndent         v$BlueShellVersion [$BlueShellBranch]"                                   -ForegroundColor DarkCyan
-        Write-Host "$bannerIndent         PowerShell v$PowerShellVersion"                                          -ForegroundColor DarkGreen
-        Write-Host "$bannerIndent================================================================================" -ForegroundColor White
-        Write-Host ""
+        Write-Message "$bannerIndent================================================================================" -ForegroundColor White
+        Write-Message "$bannerIndent                                                                                " -ForegroundColor Blue
+        Write-Message "$bannerIndent                                                      __                _       " -ForegroundColor Blue
+        Write-Message "$bannerIndent                                                     /. }             _/ |      " -ForegroundColor Blue
+        Write-Message "$bannerIndent                                                  ,-'/ \ \         _./   /\     " -ForegroundColor Blue
+        Write-Message "$bannerIndent      ____  __   __  ________                   .'  /   \/       ./     / |     " -ForegroundColor Blue
+        Write-Message "$bannerIndent     / __ \/ /  / / / / ____/         ._       /__-''''-.\_    ./      ' /\     " -ForegroundColor Blue
+        Write-Message "$bannerIndent    / __  / /  / / / / __/             \ ''--:'   '\_______.\./         ' |     " -ForegroundColor Blue
+        Write-Message "$bannerIndent   / /_/ / /__/ /_/ / /___           ___\     |    / .''''.\/           _/|     " -ForegroundColor Blue
+        Write-Message "$bannerIndent  /_____/_____\____/_____/           \  /\__,-'   /  |  ' ||           _./      " -ForegroundColor Blue
+        Write-Message "$bannerIndent       _____ __  __________    __    .\/-----..-''\   '--' |          '/        " -ForegroundColor Blue
+        Write-Message "$bannerIndent      / ___// / / / ____/ /   / /   |          ''--\,       \_____..-'          " -ForegroundColor Blue
+        Write-Message "$bannerIndent      \__ \/ /_/ / __/ / /   / /    |   ,.._         ''---./...\-   |           " -ForegroundColor Blue
+        Write-Message "$bannerIndent     ___/ / __  / /___/ /___/ /___   '-| |   |'--._                .'           " -ForegroundColor Blue
+        Write-Message "$bannerIndent    /____/_/ /_/_____/_____/_____/      \ \_/ ,' |  '';--.______.-'             " -ForegroundColor Blue
+        Write-Message "$bannerIndent                                         '---'    ';''    /   /./               " -ForegroundColor Blue
+        Write-Message "$bannerIndent                                           '-.___.'     ,* ,.''                 " -ForegroundColor Blue
+        Write-Message "$bannerIndent                                               ''------'-''                     " -ForegroundColor Blue
+        Write-Message "$bannerIndent                                                                                " -ForegroundColor Blue
+        Write-Message "$bannerIndent================================================================================" -ForegroundColor White
+        Write-Message "$bannerIndent         v$BlueShellVersion [$BlueShellBranch]"                                   -ForegroundColor DarkCyan
+        Write-Message "$bannerIndent         PowerShell v$PowerShellVersion"                                          -ForegroundColor DarkGreen
+        Write-Message "$bannerIndent================================================================================" -ForegroundColor White
+        Write-Message ""
     }
 }

@@ -16,7 +16,21 @@
 # </copyright>
 # ------------------------------------------------------------------------------
 
-Write-Host "Bootstrapping..."
+Function Write-Message(
+    [String] $Message, 
+    [ConsoleColor] $ForegroundColor = [ConsoleColor]::White,
+    [switch] $NoNewLine
+) {
+    if ($env:BlueShellQuietMode -ne "True") {
+        Write-Host "$Message" -ForegroundColor $ForegroundColor -NoNewLine:$NoNewLine
+    }
+}
+
+Export-ModuleMember -Function 'Write-Message'
+
+Write-Host "BlueShellQuietMode:" -ForegroundColor Blue -NoNewLine
+Write-Host "$($env:BlueShellQuietMode -eq $true)" -ForegroundColor Cyan
+Write-Message "Bootstrapping..."
 
 # Load Bootstrapping scripts.
 . $BlueShellRoot/internal/bootstrap/Write-AutoScriptImport.ps1
@@ -29,7 +43,7 @@ Write-Host "Bootstrapping..."
 # Create/Load Machine Config.
 Set-ReadOnly BlueShellMachineConfig "$BlueShellRoot\machine_config.ps1"
 if (-not (Test-Path $BlueShellMachineConfig)) {
-    Write-Host "No Machine Config found at $BlueShellMachineConfig. Creating..."
+    Write-Message "No Machine Config found at $BlueShellMachineConfig. Creating..."
     New-Item -Path $BlueShellMachineConfig -ItemType File -Force -Value ""
 }
 
@@ -46,7 +60,7 @@ if (Test-Path $BlueShellExtensionRoot) {
         . Import-AutoScripts $extension
     }
 } else {
-    Write-Host "No Extensions Found."
+    Write-Message "No Extensions Found."
 }
 
-Write-Host "...Finished Bootstrapping."
+Write-Message "...Finished Bootstrapping."
