@@ -1,0 +1,31 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "PowerShell: Run Pester Tests",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "${workspaceFolder}/src/tests/Invoke-Tests.ps1",
+            "cwd": "${workspaceFolder}/src/tests",
+            "createTemporaryIntegratedConsole": true,
+            "presentation": {
+                "hidden": false,
+                "group": "tests",
+                "order": 1
+            },
+            "preLaunchTask": "Install Pester"
+        },
+        {
+            "name": "PowerShell: Run Current Test File",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "Invoke-Pester -Path '${file}' -Output Detailed",
+            "createTemporaryIntegratedConsole": true,
+            "presentation": {
+                "hidden": false,
+                "group": "tests",
+                "order": 2
+            }
+        }
+    ]
+}

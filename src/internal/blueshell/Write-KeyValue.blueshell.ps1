@@ -41,6 +41,16 @@ The separator string to display between the key and value. No spaces will be
 included between the key value or separator. Any whitespace should be included
 in the separator. Defaults to ": ".
 
+.EXAMPLE
+# Basic usage with default colors
+Write-KeyValue "Status" "Running"
+# Output: Status: Running (with Cyan key and Yellow value)
+
+.EXAMPLE
+# Custom colors and separator
+Write-KeyValue "Error" "404" -KeyColor Red -ValueColor White -Separator " -> "
+# Output: Error -> 404 (with Red key and White value)
+
 .INPUTS
 None. Piped values are not used.
 

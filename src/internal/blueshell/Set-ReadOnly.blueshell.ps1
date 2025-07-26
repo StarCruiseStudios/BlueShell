@@ -31,11 +31,37 @@ The name of the variable.
 .PARAMETER Value
 The value to display
 
+.PARAMETER silent
+If specified, suppresses the automatic display of the variable name and value
+after setting it.
+
+.EXAMPLE
+# Basic usage
+Set-ReadOnly "MaxRetries" "3"
+# Output: MaxRetries: 3
+
+.EXAMPLE
+# Silent mode
+Set-ReadOnly "ApiKey" "secret123" -silent
+# No output
+
+.EXAMPLE
+# Attempting to modify a readonly variable
+Set-ReadOnly "Version" "1.0.0"
+$Version = "2.0.0"  # This will fail with an error
+# Error: Cannot overwrite variable Version because it is read-only or constant.
+
 .INPUTS
 None. Piped values are not used.
 
 .OUTPUTS
-No value is output.
+No value is output. If -silent is not specified, the variable name and value
+are displayed to the host.
+
+.NOTES
+Variables set with this function can still be modified by calling Set-ReadOnly
+again with a new value. This allows for updating configuration while preventing
+accidental modifications.
 #>
 Function Set-ReadOnly(
     [String] $Name, 
