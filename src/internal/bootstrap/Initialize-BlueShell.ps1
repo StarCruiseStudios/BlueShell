@@ -32,6 +32,8 @@ Write-Host "BlueShellQuietMode:" -ForegroundColor Blue -NoNewLine
 Write-Host "$($env:BlueShellQuietMode -eq $true)" -ForegroundColor Cyan
 Write-Message "Bootstrapping..."
 
+$bootstrapStopwatch = [System.Diagnostics.Stopwatch]::StartNew()
+
 # Load Bootstrapping scripts.
 . $BlueShellRoot/internal/bootstrap/Write-AutoScriptImport.ps1
 . $BlueShellRoot/internal/bootstrap/Import-AutoScripts.ps1
@@ -56,11 +58,16 @@ if (Test-Path $BlueShellExtensionRoot) {
     $global:BlueShellExtensions = [System.Collections.ArrayList]::new()
     . Import-AutoScripts $BlueShellExtensionRoot
 
+    # Load extensions with optimized discovery
+    Write-Message "Loading $($global:BlueShellExtensions.Count) extensions..."
+    
     foreach ($extension in $global:BlueShellExtensions) {
+        Write-Message "Loading extension: $extension" -ForegroundColor DarkCyan
         . Import-AutoScripts $extension
     }
 } else {
     Write-Message "No Extensions Found."
 }
 
-Write-Message "...Finished Bootstrapping."
+$bootstrapStopwatch.Stop()
+Write-Message "...Finished Bootstrapping in $($bootstrapStopwatch.ElapsedMilliseconds)ms"
