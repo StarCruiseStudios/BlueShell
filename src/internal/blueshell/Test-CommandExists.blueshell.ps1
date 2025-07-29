@@ -54,13 +54,17 @@ System.Boolean. Returns $True if the command exists, $False otherwise.
 The function uses Get-Command internally with error suppression for clean output.
 #>
 
-Function Test-CommandExists($command) {
+Function Test-CommandExists(
+    [Parameter(Mandatory = $true)]
+    [ValidateNotNullOrEmpty()]
+    [string] $command
+) {
     try {
-        $output = get-command $command -ErrorAction Stop
-        Write-Output $True
+        $output = Get-Command $command -ErrorAction Stop
+        return $true
     }
     catch {
-        Write-Output $False
+        return $false
     }
 }
 

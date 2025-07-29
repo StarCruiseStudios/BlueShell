@@ -38,18 +38,27 @@ None. Piped values are not used.
 The newly created extension import file.
 #>
 Function New-BlueShellExtension(
-    [Parameter(Mandatory=$true)][String] $ExtensionName,
+    [Parameter(Mandatory = $true)]
+    [ValidateNotNullOrEmpty()]
+    [String] $ExtensionName,
+    
+    [ValidateNotNullOrEmpty()]
     [String] $ExtensionPath = "."
 ) {
-    $fileName = "Import-${ExtensionName}BlueShell.blueshell.ps1"
-    $filePath = "${BlueShellExtensionRoot}/${fileName}"
+    try {
+        if (-not (Test-Path $ExtensionPath)) {
+            throw "Extension path '$ExtensionPath' does not exist"
+        }
+        
+        $fileName = "Import-${ExtensionName}BlueShell.blueshell.ps1"
+        $filePath = Join-Path $BlueShellExtensionRoot $fileName
 
-    $extensionRoot = (Resolve-Path $ExtensionPath).path
+        $extensionRoot = (Resolve-Path $ExtensionPath).Path
 
-    $contents = @"
+        $contents = @"
 #
 # Import BlueShell Extension $ExtensionName
-#   Imported using `Import-BlueShellExtension`
+#   Imported using New-BlueShellExtension
 #   BlueShell V$BlueShellVersion
 #
 
@@ -57,7 +66,13 @@ Function New-BlueShellExtension(
 
 "@
 
-    New-Item $filePath -ItemType File -Value $contents -Force
+        New-Item $filePath -ItemType File -Value $contents -Force
+        return Get-Item $filePath
+    }
+    catch {
+        Write-Error "Failed to create BlueShell extension '$ExtensionName': $($_.Exception.Message)"
+        throw
+    }
 }
 
 Export-ModuleMember -Function 'New-BlueShellExtension'

@@ -26,7 +26,16 @@
 .EXAMPLE
     Test-MachineUser -User 'JohnDoe'
 #>
-Function Test-MachineUser([String] $User) {
+Function Test-MachineUser(
+    [Parameter(Mandatory = $true)]
+    [ValidateNotNullOrEmpty()]
+    [String] $User
+) {
+    if (-not (Get-Variable -Name 'BlueShellUser' -Scope Global -ErrorAction SilentlyContinue)) {
+        Write-Warning "BlueShellUser global variable is not defined"
+        return $false
+    }
+    
     return $BlueShellUser -eq $User
 }
 

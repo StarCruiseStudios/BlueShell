@@ -58,10 +58,21 @@ None. Piped values are not used.
 No value is output. The message is sent directly to the host.
 #>
 Function Write-KeyValue(
+    [Parameter(Mandatory = $true)]
+    [ValidateNotNullOrEmpty()]
     [String] $Key, 
+    
+    [Parameter(Mandatory = $true)]
+    [AllowEmptyString()]
     [String] $Value, 
+    
+    [ValidateNotNull()]
     [ConsoleColor] $KeyColor = [ConsoleColor]::Cyan, 
+    
+    [ValidateNotNull()]
     [System.ConsoleColor] $ValueColor = [ConsoleColor]::Yellow,
+    
+    [ValidateNotNull()]
     [String] $Separator = ": "
 ) {
     Write-Message "$Key$Separator" -ForegroundColor $KeyColor -NoNewline

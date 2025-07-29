@@ -29,7 +29,16 @@
     PS C:\> Test-MachineName -Name "MyComputer"
     True
 #>
-Function Test-MachineName([String] $Name) {
+Function Test-MachineName(
+    [Parameter(Mandatory = $true)]
+    [ValidateNotNullOrEmpty()]
+    [String] $Name
+) {
+    if (-not (Get-Variable -Name 'BlueShellMachineName' -Scope Global -ErrorAction SilentlyContinue)) {
+        Write-Warning "BlueShellMachineName global variable is not defined"
+        return $false
+    }
+
     return $BlueShellMachineName -eq $Name
 }
 

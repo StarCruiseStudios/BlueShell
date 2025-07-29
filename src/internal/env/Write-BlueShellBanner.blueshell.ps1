@@ -70,21 +70,30 @@ None. Piped values are not used.
 No value is output. The message is sent directly to the host.
 #>
 Function Write-BlueShellBanner {
-    # Skip banner entirely if quiet mode is enabled
     if ($env:BlueShellQuietMode -eq "True") {
         return
     }
     
     Set-Variable BannerWidth -Option Constant -Value 80
     Set-Variable PowerShellVersion -Option Constant -Value $PSVersionTable.PSVersion.ToString()
-    Set-Variable BufferWidth -Option Constant -Value $Host.UI.RawUI.BufferSize.Width
-
-    # Print the small banner if the display buffer is too narrow.
+        
+    # Safely get buffer width with fallback
+    $BufferWidth = 80  # Default fallback
+    try {
+        if ($Host.UI -and $Host.UI.RawUI -and $Host.UI.RawUI.BufferSize) {
+            $BufferWidth = $Host.UI.RawUI.BufferSize.Width
+        }
+    } catch {
+        Write-Verbose "Could not determine buffer width, using default: $($_.Exception.Message)"
+    }
+    
+    Set-Variable BufferWidth -Option Constant -Value $BufferWidth
+        
     if ($BufferWidth -lt $BannerWidth) {
         $banner = $script:SmallBannerTemplate -f $BlueShellVersion, $BlueShellBranch, $PowerShellVersion
         Write-Host $banner -NoNewline
     } else {
-        $bannerIndentSize = ($BufferWidth - $BannerWidth) / 2 -as [int]        
+        $bannerIndentSize = [Math]::Max(0, [Math]::Floor(($BufferWidth - $BannerWidth) / 2))
         $bannerIndent = [System.String]::new(' ', $bannerIndentSize)
         
         $banner = $script:LargeBannerTemplate -f $bannerIndent, $BlueShellVersion, $BlueShellBranch, $PowerShellVersion

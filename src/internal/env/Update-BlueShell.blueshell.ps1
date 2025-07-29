@@ -30,7 +30,18 @@ None. Piped values are not used.
 No value is output.
 #>
 Function Update-BlueShell {
-    Import-Module $BlueShellRoot\BlueShell.psm1 -Force -Global
+    try {
+        $moduleFile = Join-Path $BlueShellRoot "BlueShell.psm1"
+        if (-not (Test-Path $moduleFile)) {
+            throw "BlueShell module file not found at: $moduleFile"
+        }
+        
+        Import-Module $moduleFile -Force -Global
+    }
+    catch {
+        Write-Error "Failed to update BlueShell: $($_.Exception.Message)"
+        throw
+    }
 }
 Set-Alias -Name reload -Value Update-BlueShell
 
