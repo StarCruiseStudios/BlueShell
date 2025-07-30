@@ -31,16 +31,7 @@ None. Piped values are not used.
 .OUTPUTS
 No value is output. The message is sent directly to the host.
 #>
-Function Write-AutoScriptImport(
-    [Parameter(Mandatory = $true)]
-    [ValidateNotNullOrEmpty()]
-    [String] $FileName
-) {
-    try {
-        Write-Message "Loading - " -ForegroundColor Blue -NoNewline
-        Write-Message $FileName -ForegroundColor Green
-    }
-    catch {
-        Write-Host "Loading - $FileName"
-    }
+Function Write-AutoScriptImport([String] $FileName) {
+    Write-Message "Loading - " -ForegroundColor Blue -NoNewline
+    Write-Message $FileName -ForegroundColor Green
 }

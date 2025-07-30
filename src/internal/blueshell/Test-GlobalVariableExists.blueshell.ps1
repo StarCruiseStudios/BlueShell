@@ -28,17 +28,8 @@
     Returns True if a variable named "MyVariable" is defined in the global 
     scope.
 #>
-Function Test-GlobalVariableExists(
-    [Parameter(Mandatory = $true)]
-    [ValidateNotNullOrEmpty()]
-    [String] $Name
-) {
-    try {
-        return (Get-Variable -Name $Name -Scope Global -ErrorAction SilentlyContinue) -ne $null
-    }
-    catch {
-        return $false
-    }
+Function Test-GlobalVariableExists([String] $Name) {
+    return (Get-Variable -Name $Name -Scope Global -ErrorAction SilentlyContinue) -ne $null
 }
 
 Export-ModuleMember -Function 'Test-GlobalVariableExists'

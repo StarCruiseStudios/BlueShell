@@ -36,53 +36,18 @@ Update-MachineConfigVariable -Name "MyVariable" -NewValue "NewValue"
 This example updates the value of the "MyVariable" machine configuration 
 variable to "NewValue".
 #>
-Function Update-MachineConfigVariable(
-    [Parameter(Mandatory = $true)]
-    [ValidateNotNullOrEmpty()]
-    [String] $Name, 
-    
-    [Parameter(Mandatory = $true)]
-    [AllowEmptyString()]
-    [String] $NewValue
-) {
-    try {
-        # Create the config file if it doesn't exist
-        if (-not (Test-Path $BlueShellMachineConfig)) {
-            $configDir = Split-Path $BlueShellMachineConfig -Parent
-            if (-not (Test-Path $configDir)) {
-                New-Item -Path $configDir -ItemType Directory -Force | Out-Null
-            }
-            New-Item -Path $BlueShellMachineConfig -ItemType File -Force | Out-Null
+Function Update-MachineConfigVariable([String] $Name, [String] $NewValue) {
+    Write-Message "Updating $Name : $NewValue"
+    $content = Get-Content -Path $BlueShellMachineConfig
+    $regex = "^Set-ReadOnly $Name .*$"
+    $content | ForEach-Object {
+        if ($_ -match $regex) {
+            $_ -replace $regex, "Set-ReadOnly $Name ""$NewValue"""
+        } else {
+            $_
         }
-        
-        Write-Message "Updating $Name : $NewValue"
-        
-        $content = Get-Content -Path $BlueShellMachineConfig
-        $regex = "^Set-ReadOnly $Name .*$"
-        $found = $false
-        
-        $escapedValue = $NewValue -replace '"', '""'
-        
-        $updatedContent = $content | ForEach-Object {
-            if ($_ -match $regex) {
-                $found = $true
-                $_ -replace $regex, "Set-ReadOnly $Name ""$escapedValue"""
-            } else {
-                $_
-            }
-        }
-        
-        if (-not $found) {
-            throw "Variable '$Name' not found in configuration file"
-        }
-        
-        $updatedContent | Set-Content -Path $BlueShellMachineConfig
-        Set-ReadOnly $Name "$NewValue"
-    }
-    catch {
-        Write-Error "Failed to update machine config variable '$Name': $($_.Exception.Message)"
-        throw
-    }
+    } | Set-Content -Path $BlueShellMachineConfig
+    Set-ReadOnly $Name "$NewValue"
 }
 
 Export-ModuleMember -Function 'Update-MachineConfigVariable'

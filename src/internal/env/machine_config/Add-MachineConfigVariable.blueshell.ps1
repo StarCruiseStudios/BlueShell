@@ -36,34 +36,10 @@ Add-MachineConfigVariable -Name "MyVariable" -Value "MyValue"
 This example adds a new variable named "MyVariable" with a value of "MyValue" to
 the BlueShell machine configuration file.
 #>
-Function Add-MachineConfigVariable(
-    [Parameter(Mandatory = $true)]
-    [ValidateNotNullOrEmpty()]
-    [String] $Name, 
-    
-    [Parameter(Mandatory = $true)]
-    [AllowEmptyString()]
-    [String] $Value
-) {
-    try {
-        # Create the config file and directory if they don't exist
-        $configDir = Split-Path $BlueShellMachineConfig -Parent
-        if (-not (Test-Path $configDir)) {
-            New-Item -Path $configDir -ItemType Directory -Force | Out-Null
-        }
-        
-        if (-not (Test-Path $BlueShellMachineConfig)) {
-            New-Item -Path $BlueShellMachineConfig -ItemType File -Force | Out-Null
-        }
-        
-        Write-Message "Adding $Name : $Value"
-        Add-Content -Path $BlueShellMachineConfig -Value "Set-ReadOnly $Name ""$Value"""
-        Set-ReadOnly $Name "$Value"
-    }
-    catch {
-        Write-Error "Failed to add machine config variable '$Name': $($_.Exception.Message)"
-        throw
-    }
+Function Add-MachineConfigVariable([String] $Name, [String] $Value) {
+    Write-Message "Adding $Name : $Value"
+    Add-Content -Path $BlueShellMachineConfig -Value "Set-ReadOnly $Name ""$Value"""
+    Set-ReadOnly $Name "$Value"
 }
 
 Export-ModuleMember -Function 'Add-MachineConfigVariable'

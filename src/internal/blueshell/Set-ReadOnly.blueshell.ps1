@@ -64,27 +64,14 @@ again with a new value. This allows for updating configuration while preventing
 accidental modifications.
 #>
 Function Set-ReadOnly(
-    [Parameter(Mandatory = $true)]
-    [ValidateNotNullOrEmpty()]
     [String] $Name, 
-    
-    [Parameter(Mandatory = $true)]
-    [AllowEmptyString()]
     [String] $Value,
-    
     [Switch] $silent
 ) {
-    try {
-        Set-Variable $Name -Value $Value -Force -Option ReadOnly -Scope:Global
-        
-        if (!$silent) {
-            $var = Get-Variable $Name
-            Write-KeyValue $var.Name $var.Value
-        }
-    }
-    catch {
-        Write-Error "Failed to set read-only variable '$Name': $($_.Exception.Message)"
-        throw
+    Set-Variable $Name -Value $Value -Force -Option ReadOnly -Scope:Global
+    if (!$silent) {
+        $var = Get-Variable $Name
+        Write-KeyValue $var.Name $var.Value
     }
 }
 

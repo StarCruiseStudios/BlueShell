@@ -30,56 +30,43 @@ None. Piped values are not used.
 None
 #>
 Function Install-BlueShell {
-    try {
-        if ($IsMacOS) {
-            # Configure zprofile to start up PowerShell
-            if (!(Test-Path "~/.zprofile")) {
-                New-Item -Path "~/.zprofile" -Type File -Force
-            }
-
-            $installedOnZProfile = (Select-String -Path "~/.zprofile" -Pattern "pwsh" -SimpleMatch -Quiet)
-            if (-not $installedOnZProfile) {
-                Add-Content "~/.zprofile" "pwsh"
-            }
+    if ($IsMacOS) {
+        # Configure zprofile to start up Powershell.
+        if (!(Test-Path "~/.zprofile")) {
+            New-Item -Path "~/.zprofile" -Type File -Force
         }
 
-        # Configure the currentUserAllHosts profile
-        if (-not (Test-Path $Profile.CurrentUserAllHosts)) {
-            $profileDir = Split-Path $Profile.CurrentUserAllHosts -Parent
-            if (-not (Test-Path $profileDir)) {
-                New-Item -Path $profileDir -ItemType Directory -Force
-            }
-            New-Item -Path $Profile.CurrentUserAllHosts -Type File -Force
+        $installedOnZProfile = (Select-String -Path "~/.zprofile" -Pattern "pwsh" -SimpleMatch -Quiet)
+        if (-not $installedOnZProfile) {
+            Add-Content "~/.zprofile" "pwsh"
         }
+    }
 
-        $installedOnAllHosts = (Select-String -Path $Profile.CurrentUserAllHosts -Pattern "Function Start-BlueShell" -SimpleMatch -Quiet)
-        if (-not $installedOnAllHosts) {
-            Add-Content $Profile.CurrentUserAllHosts @"
+    # Configure the currentUserAllHosts profile to define the `Start-BlueShell`
+    # command. This will allow BlueShell to be started at any time, from any 
+    # host, but only when explicitly wanted.
+    if (-not (Test-Path $Profile.CurrentUserAllHosts)) {
+        New-Item -Path $Profile.CurrentUserAllHosts -Type File -Force
+    }
+
+    $installedOnAllHosts = (Select-String -Path $Profile.CurrentUserAllHosts -Pattern "Function Start-BlueShell" -SimpleMatch -Quiet)
+    if (-not $installedOnAllHosts) {
+        Add-Content $Profile.CurrentUserAllHosts @"
 Function Start-BlueShell() {
     Import-Module $BlueShellRoot\BlueShell.psm1 -Force -Global
 }
 "@
-        }
+    }
 
-        # Configure the currentUserCurrentHost profile
-        if (-not (Test-Path $Profile.CurrentUserCurrentHost)) {
-            $profileDir = Split-Path $Profile.CurrentUserCurrentHost -Parent
-            if (-not (Test-Path $profileDir)) {
-                New-Item -Path $profileDir -ItemType Directory -Force
-            }
-            New-Item -Path $Profile.CurrentUserCurrentHost -Type File -Force
-        }
-        
-        $installedOnCurrentHost = (Select-String -Path $Profile.CurrentUserCurrentHost -Pattern "Start-BlueShell" -SimpleMatch -Quiet)
-        if (-not $installedOnCurrentHost) {
-            Add-Content $Profile.CurrentUserCurrentHost @"
+    # Configure the currentUserCurrentHost profile to invoke `Start-BlueShell`.
+    if (-not (Test-Path $Profile.CurrentUserCurrentHost)) {
+        New-Item -Path $Profile.CurrentUserCurrentHost -Type File -Force
+    }
+    $installedOnCurrentHost = (Select-String -Path $Profile.CurrentUserCurrentHost -Pattern "Start-BlueShell" -SimpleMatch -Quiet)
+    if (-not $installedOnCurrentHost) {
+        Add-Content $Profile.CurrentUserCurrentHost @"
 Start-BlueShell
 "@
-        }
-    }
-    catch {
-        Write-Error "Failed to install BlueShell: $($_.Exception.Message)"
-        throw
     }
 }
 

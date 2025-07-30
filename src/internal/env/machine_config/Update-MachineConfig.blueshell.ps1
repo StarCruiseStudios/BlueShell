@@ -29,35 +29,28 @@ Update-MachineConfig
 This example updates the machine configuration variables for BlueShell.
 #>
 Function Update-MachineConfig() {
-    try {
-        $updated = $false
-        
-        if (-not (Test-GlobalVariableExists 'BlueShellMachineName')) {
-            Add-MachineConfigVariable "BlueShellMachineName" "BlueShell"
-            $updated = $true
-        }
-
-        if (-not (Test-GlobalVariableExists 'BlueShellUser')) {
-            Add-MachineConfigVariable "BlueShellUser" "BlueShell"
-            $updated = $true
-        }
-
-        if (-not (Test-GlobalVariableExists 'BlueShellMachineConfigVersion')) {
-            Add-MachineConfigVariable "BlueShellMachineConfigVersion" $BlueShellVersion
-            $updated = $true
-        } else {
-            if ($BlueShellMachineConfigVersion -lt $BlueShellVersion) {
-                Update-MachineConfigVariable "BlueShellMachineConfigVersion" $BlueShellVersion
-                $updated = $true
-            }
-        }
-
-        return $updated
+    $updated = $false
+    if (-not (Test-GlobalVariableExists 'BlueShellMachineName')) {
+        Add-MachineConfigVariable "BlueShellMachineName" "BlueShell"
+        $updated = $true
     }
-    catch {
-        Write-Error "Failed to update machine configuration: $($_.Exception.Message)"
-        throw
+
+    if (-not (Test-GlobalVariableExists 'BlueShellUser')) {
+        Add-MachineConfigVariable "BlueShellUser" "BlueShell"
+        $updated = $true
     }
+
+    if (-not (Test-GlobalVariableExists 'BlueShellMachineConfigVersion')) {
+        Add-MachineConfigVariable "BlueShellMachineConfigVersion" $BlueShellVersion
+        $updated = $true
+    } else {
+        if ($BlueShellMachineConfigVersion -lt $BlueShellVersion) {
+            Update-MachineConfigVariable "BlueShellMachineConfigVersion" $BlueShellVersion
+            $updated = $true
+        }
+    }
+
+    return $updated
 }
 
 Export-ModuleMember -Function 'Update-MachineConfig'
