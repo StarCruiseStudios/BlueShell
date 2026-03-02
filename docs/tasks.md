@@ -106,18 +106,18 @@ Step-by-step implementation plan. Each task and subtask has a unique ID and a re
 
 ## Phase 2 — Cross-platform and PowerShell 7 install
 
-- [ ] **T020** — Install scripts and PowerShell 7  
+- [x] **T020** — Install scripts and PowerShell 7  
   Spec: §9 PowerShell 7 and install scripts  
 
-  - [ ] **T020.01** Implement **Install-BlueShell.ps1** (Windows): check for PowerShell 7, install if missing; then run profile/config setup (or call base setup in pwsh).
-  - [ ] **T020.02** Implement **Install-BlueShell.sh** (macOS and Linux): install pwsh 7 if needed (e.g. package manager), invoke pwsh to run profile/config setup.
-  - [ ] **T020.03** Document in specification.md and README that BlueShell requires pwsh 7 and how to run install scripts.
+  - [x] **T020.01** Implement **Install-BlueShell.ps1** (Windows): check for PowerShell 7, install if missing; then run profile/config setup (or call base setup in pwsh).
+  - [x] **T020.02** Implement **Install-BlueShell.sh** (macOS and Linux): install pwsh 7 if needed (e.g. package manager), invoke pwsh to run profile/config setup.
+  - [x] **T020.03** Document in specification.md and README that BlueShell requires pwsh 7 and how to run install scripts.
 
-- [ ] **T021** — Cross-platform testing and agent rules  
+- [x] **T021** — Cross-platform testing and agent rules  
   Spec: §10 Cross-platform  
 
-  - [ ] **T021.01** Add or extend tests to run on Windows, macOS, Linux where feasible; document any platform-specific tests.
-  - [ ] **T021.02** In AGENTS.md and .cursor/rules, state that code must be cross-platform and document any unavoidable platform differences.
+  - [x] **T021.01** Add or extend tests to run on Windows, macOS, Linux where feasible; document any platform-specific tests.
+  - [x] **T021.02** In AGENTS.md and .cursor/rules, state that code must be cross-platform and document any unavoidable platform differences.
 
 ---
 

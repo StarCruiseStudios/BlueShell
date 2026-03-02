@@ -157,6 +157,9 @@ Total order: Base env → Base secret → Base bootstrap → Base init → Ext1 
 - **Install scripts**: 
   - **Install-BlueShell.ps1** (Windows): Run with PowerShell (any version) or pwsh. Performs all installation steps including checking for and installing PowerShell 7 if missing. Then configures profile and BlueShell as above.
   - **Install-BlueShell.sh** (macOS and Linux): Run with bash/sh. Installs PowerShell 7 if needed (e.g. via package manager), then invokes pwsh to run the rest of the setup (profile, config, etc.).
+- **How to run**:
+  - **Windows**: Open PowerShell or cmd, `cd` to the BlueShell repo clone, run `.\Install-BlueShell.ps1`. If execution policy blocks the script, use `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser` or run with `pwsh -ExecutionPolicy Bypass -File .\Install-BlueShell.ps1`.
+  - **macOS/Linux**: `cd` to the repo, run `chmod +x Install-BlueShell.sh`, then `./Install-BlueShell.sh`.
 - Running the install is a one-time (or as-needed) prerequisite, independent of the BlueShell module load sequence. The base assumes pwsh 7 is available when the module is loaded.
 
 ---
@@ -186,6 +189,7 @@ Modules have **no required** top-level folder names; layout is by convention. Au
 - **Scope**: Config load and override; bootstrap and four-phase order; reload idempotency and PATH reinit; switch (config update and reload); setup idempotency; quiet mode (no output when BLUESHELL_QUIET or default); provider/topic registration and pull/push.
 - **Isolation**: Tests must not depend on real user profile or global machine config. Use temp directories, mock or override config path, and optionally a test-specific profile path so production config is untouched.
 - **CI**: Tests must be runnable non-interactively (e.g. `Invoke-Pester` or `./src/tests/Invoke-Tests.ps1`). Design so tests do not require loading the full interactive environment unless testing that explicitly.
+- **Cross-platform**: Tests are intended to run on Windows, macOS, and Linux under PowerShell 7. Run with `pwsh -File src/tests/Invoke-Tests.ps1` or `Invoke-Pester -Path src/tests`. Any platform-specific tests are documented in the test file or in docs.
 
 ---
 

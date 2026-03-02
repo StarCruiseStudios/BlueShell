@@ -16,7 +16,7 @@
 ## Cross-platform (spec §10)
 
 - Code must run on **PowerShell 7** on Windows, macOS, and Linux. Avoid Windows-only or Unix-only assumptions unless abstracted (e.g. path join, line endings).
-- Document any unavoidable platform differences in code comments or docs.
+- Document any unavoidable platform differences in code comments or docs (e.g. install script behavior per OS).
 
 ## Reload and switch (spec §7)
 

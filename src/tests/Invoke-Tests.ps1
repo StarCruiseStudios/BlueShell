@@ -1,6 +1,7 @@
 # Invoke-Tests.ps1 - Run BlueShell tests (Spec §12)
 # Uses Pester v5. Does not touch real ~/.blueshell or user profile.
-# Run: pwsh -File src/tests/Invoke-Tests.ps1   or   pwsh -Command "Invoke-Pester -Path src/tests"
+# Cross-platform: run on Windows, macOS, or Linux under PowerShell 7.
+# Run: pwsh -File src/tests/Invoke-Tests.ps1   or   Invoke-Pester -Path src/tests
 
 [CmdletBinding()]
 param(
