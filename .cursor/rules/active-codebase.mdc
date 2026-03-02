@@ -1,0 +1,19 @@
+---
+description: Active codebase and V0 legacy reference; from-scratch design per spec
+alwaysApply: true
+---
+
+# BlueShell active codebase
+
+- **Repo root** is the **active codebase**. All new work and edits happen at the root.
+- **V0/** is **legacy reference only**. Do not edit V0 or use it for codebase answers; it is preserved for reference.
+- Design is **from-scratch** per the specification. See `docs/specification.md` and `docs/tasks.md`.
+
+## Target layout (spec §11)
+
+- **Entry point**: `src/BlueShell.psm1`
+- **Script folders**: `src/bootstrap/`, `src/config/`, `src/env/`, `src/core/`
+- **Tests**: `src/tests/` (structure mirrors src/ where relevant: tests/bootstrap/, tests/config/, tests/env/, tests/core/)
+- **Docs**: `docs/` (specification.md, tasks.md, recommended-agent-skills.md)
+
+Point agents at this new layout and at tests under `src/tests/`.

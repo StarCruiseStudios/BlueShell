@@ -6,26 +6,26 @@ Step-by-step implementation plan. Each task and subtask has a unique ID and a re
 
 ## Phase 0 — Migration (all three repos)
 
-- [ ] **T001** — Migrate BlueShell repo to V0 and prepare blank slate  
+- [x] **T001** — Migrate BlueShell repo to V0 and prepare blank slate  
   Spec: §1 Architecture, §11 Base repository layout  
 
-  - [ ] **T001.01** Copy existing repo root contents (excluding `.git`, optionally `.cursor`) into **V0/** in BlueShell repo.
-  - [ ] **T001.02** Add **.cursorignore** so **V0/** is ignored by agents (editing and codebase answers).
-  - [ ] **T001.03** Add **.cursor/rules/** and/or **AGENTS.md** at repo root stating root is the active codebase, V0 is legacy reference only, and design is from-scratch; point agents at new layout and tests.
+  - [x] **T001.01** Copy existing repo root contents (excluding `.git`, optionally `.cursor`) into **V0/** in BlueShell repo.
+  - [x] **T001.02** Add **.cursorignore** so **V0/** is ignored by agents (editing and codebase answers).
+  - [x] **T001.03** Add **.cursor/rules/** and/or **AGENTS.md** at repo root stating root is the active codebase, V0 is legacy reference only, and design is from-scratch; point agents at new layout and tests.
 
-- [ ] **T002** — Migrate DanBlueShell repo to V0 and prepare blank slate  
+- [x] **T002** — Migrate DanBlueShell repo to V0 and prepare blank slate  
   Spec: §1 Architecture  
 
-  - [ ] **T002.01** Copy existing repo root contents (excluding `.git`, optionally `.cursor`) into **V0/** in DanBlueShell repo.
-  - [ ] **T002.02** Add **.cursorignore** so **V0/** is ignored by agents.
-  - [ ] **T002.03** Add **.cursor/rules/** and/or **AGENTS.md** stating root is active codebase, V0 is reference only.
+  - [x] **T002.01** Copy existing repo root contents (excluding `.git`, optionally `.cursor`) into **V0/** in DanBlueShell repo.
+  - [x] **T002.02** Add **.cursorignore** so **V0/** is ignored by agents.
+  - [x] **T002.03** Add **.cursor/rules/** and/or **AGENTS.md** stating root is active codebase, V0 is reference only.
 
-- [ ] **T003** — Migrate ScsBlueShell repo to V0 and prepare blank slate  
+- [x] **T003** — Migrate ScsBlueShell repo to V0 and prepare blank slate  
   Spec: §1 Architecture  
 
-  - [ ] **T003.01** Copy existing repo root contents (excluding `.git`, optionally `.cursor`) into **V0/** in ScsBlueShell repo.
-  - [ ] **T003.02** Add **.cursorignore** so **V0/** is ignored by agents.
-  - [ ] **T003.03** Add **.cursor/rules/** and/or **AGENTS.md** stating root is active codebase, V0 is reference only.
+  - [x] **T003.01** Copy existing repo root contents (excluding `.git`, optionally `.cursor`) into **V0/** in ScsBlueShell repo.
+  - [x] **T003.02** Add **.cursorignore** so **V0/** is ignored by agents.
+  - [x] **T003.03** Add **.cursor/rules/** and/or **AGENTS.md** stating root is active codebase, V0 is reference only.
 
 ---
 
