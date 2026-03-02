@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "type": "object",
+  "description": "Agent rule entry: id, name, path",
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "path": { "type": "string" }
+  }
+}

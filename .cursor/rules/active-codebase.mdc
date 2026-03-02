@@ -16,4 +16,4 @@ alwaysApply: true
 - **Tests**: `src/tests/` (structure mirrors src/ where relevant: tests/bootstrap/, tests/config/, tests/env/, tests/core/)
 - **Docs**: `docs/` (specification.md, tasks.md, recommended-agent-skills.md)
 
-Point agents at this new layout and at tests under `src/tests/`.
+Point agents at this new layout and at tests under `src/tests/`. Code must be cross-platform (PowerShell 7 on Windows, macOS, Linux); see spec §10 and AGENTS.md.
