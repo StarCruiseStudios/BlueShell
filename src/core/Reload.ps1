@@ -1,9 +1,11 @@
-# Reload.ps1 - Reload-BlueShell, Set-BlueShellComponentRoot, Switch-BlueShellEnvironment (Spec §7)
+# Reload.ps1 - Update-BlueShell (alias Reload-BlueShell), Set-BlueShellComponentRoot, Switch-BlueShellEnvironment (Spec §7)
 
-function Reload-BlueShell {
+function Update-BlueShell {
     <#
     .SYNOPSIS
         Reload BlueShell: remove module, reset PATH to baseline, re-import. Idempotent, quiet (Spec §7).
+    .NOTES
+        Exported as approved verb; use Reload-BlueShell alias for backward compatibility.
     #>
     [CmdletBinding()]
     param()
@@ -17,6 +19,9 @@ function Reload-BlueShell {
     if ($basePath) { $env:PATH = $basePath }
     Import-Module $psm1Path -Force -Global
 }
+
+# Backward compatibility: approved verb is Update; Reload is the conventional name (Spec §7).
+New-Alias -Name Reload-BlueShell -Value Update-BlueShell -Force
 
 function Set-BlueShellComponentRoot {
     <#
@@ -32,7 +37,7 @@ function Set-BlueShellComponentRoot {
     if (-not $mr) { $mr = @{} }
     $mr[$ComponentName] = $Path
     Set-BlueShellConfig -Key 'moduleRoots' -Value $mr
-    Reload-BlueShell
+    Update-BlueShell
 }
 
 function Switch-BlueShellEnvironment {
@@ -56,5 +61,5 @@ function Switch-BlueShellEnvironment {
     }
     Set-BlueShellConfig -Key 'moduleRoots' -Value $mr
     Set-BlueShellConfig -Key 'activePreset' -Value $PresetName
-    Reload-BlueShell
+    Update-BlueShell
 }

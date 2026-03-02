@@ -131,7 +131,7 @@ This document recommends **agent skills** that should be created so that AI agen
 
 - **Inputs**: Action (reload | set component root | switch preset), optional preset name or component name + path.
 - **Outputs**:
-  - **Reload**: Run **Reload-BlueShell** (idempotent; resets PATH and re-imports module).
+  - **Reload**: Run **Update-BlueShell** or **Reload-BlueShell** (idempotent; resets PATH and re-imports module).
   - **Set root**: Run **Set-BlueShellComponentRoot** with component name and new path; base updates config and reloads.
   - **Switch preset**: Run **Switch-BlueShellEnvironment** with preset name; base loads presets.json and reloads.
 - **Conventions**: No git operations; only config/preset file updates and reload. Reference [specification.md](specification.md) §7.

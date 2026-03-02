@@ -68,9 +68,9 @@ Step-by-step implementation plan. Each task and subtask has a unique ID and a re
 - [x] **T014** — Implement reload and branch/root switching  
   Spec: §7 Reload and branch/root switching  
 
-  - [x] **T014.01** Implement **Reload-BlueShell**: remove/clear module, reset PATH to baseline, re-import src/BlueShell.psm1; idempotent, non-interactive.
-  - [x] **T014.02** Implement **Set-BlueShellComponentRoot** (component name, path): update config then Reload-BlueShell.
-  - [x] **T014.03** Implement **Switch-BlueShellEnvironment** (preset name): load preset from presets.json, apply paths, then Reload-BlueShell.
+  - [x] **T014.01** Implement **Update-BlueShell** (alias Reload-BlueShell): remove/clear module, reset PATH to baseline, re-import src/BlueShell.psm1; idempotent, non-interactive.
+  - [x] **T014.02** Implement **Set-BlueShellComponentRoot** (component name, path): update config then Update-BlueShell.
+  - [x] **T014.03** Implement **Switch-BlueShellEnvironment** (preset name): load preset from presets.json, apply paths, then Update-BlueShell.
   - [x] **T014.04** Add tests for reload idempotency and switch (Spec §12).
 
 - [x] **T015** — Implement default quiet and interactive opt-in  
@@ -123,23 +123,23 @@ Step-by-step implementation plan. Each task and subtask has a unique ID and a re
 
 ## Phase 3 — Modules (DanBlueShell, ScsBlueShell)
 
-- [ ] **T030** — DanBlueShell from-scratch layout and setup  
+- [x] **T030** — DanBlueShell from-scratch layout and setup  
   Spec: §1 Architecture, §5 discovery, §8 per-module setup  
 
-  - [ ] **T030.01** Create module layout by convention (e.g. scripts by concern); add **\*.env.auto.ps1**, **\*.secret.auto.ps1** (or omit secret if none), **\*.bootstrap.auto.ps1**, **\*.init.auto.ps1** as needed.
-  - [ ] **T030.02** Implement **Setup-DanBlueShell** (or **Install-DanBlueShell**): register DanBlueShell root in config (moduleRoots); idempotent.
-  - [ ] **T030.03** Add **tests/** for DanBlueShell-specific behavior (e.g. PATH, helpers); add AGENTS.md.
-  - [ ] **T030.04** Optionally register providers for topics (e.g. AgentRules, or a custom topic); ensure no direct dependency on ScsBlueShell.
+  - [x] **T030.01** Create module layout by convention (e.g. scripts by concern); add **\*.env.auto.ps1**, **\*.secret.auto.ps1** (or omit secret if none), **\*.bootstrap.auto.ps1**, **\*.init.auto.ps1** as needed.
+  - [x] **T030.02** Implement **Setup-DanBlueShell** (or **Install-DanBlueShell**): register DanBlueShell root in config (moduleRoots); idempotent.
+  - [x] **T030.03** Add **tests/** for DanBlueShell-specific behavior (e.g. PATH, helpers); add AGENTS.md.
+  - [x] **T030.04** Optionally register providers for topics (e.g. AgentRules, or a custom topic); ensure no direct dependency on ScsBlueShell.
 
-- [ ] **T031** — ScsBlueShell from-scratch layout and setup  
+- [x] **T031** — ScsBlueShell from-scratch layout and setup  
   Spec: §1 Architecture, §5 discovery, §8 per-module setup  
 
-  - [ ] **T031.01** Create module layout by convention; add four-phase auto-load scripts as needed.
-  - [ ] **T031.02** Implement **Setup-ScsBlueShell** (or **Install-ScsBlueShell**): register ScsBlueShell root in config; idempotent.
-  - [ ] **T031.03** Add **tests/** for ScsBlueShell-specific behavior; add AGENTS.md.
-  - [ ] **T031.04** Register providers for AgentRules/AgentSkills and any custom topics; ensure no direct dependency on DanBlueShell.
+  - [x] **T031.01** Create module layout by convention; add four-phase auto-load scripts as needed.
+  - [x] **T031.02** Implement **Setup-ScsBlueShell** (or **Install-ScsBlueShell**): register ScsBlueShell root in config; idempotent.
+  - [x] **T031.03** Add **tests/** for ScsBlueShell-specific behavior; add AGENTS.md.
+  - [x] **T031.04** Register providers for AgentRules/AgentSkills and any custom topics; ensure no direct dependency on DanBlueShell.
 
-- [ ] **T032** — Base integration tests for modules  
+- [x] **T032** — Base integration tests for modules  
   Spec: §12 Testability  
 
-  - [ ] **T032.01** Add integration tests in base **src/tests/** that load a test module from a temp path (e.g. minimal module with one provider) and assert it is loaded and exports/participates correctly.
+  - [x] **T032.01** Add integration tests in base **src/tests/** that load a test module from a temp path (e.g. minimal module with one provider) and assert it is loaded and exports/participates correctly.

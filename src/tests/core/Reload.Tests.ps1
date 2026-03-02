@@ -20,10 +20,10 @@ Describe 'T014 Reload and switch' {
         Get-ChildItem $testConfigDir -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
     }
 
-    It 'Reload-BlueShell is idempotent' {
+    It 'Update-BlueShell (Reload-BlueShell) is idempotent' {
         Import-Module $psm1Path -Force -Global
-        Reload-BlueShell
-        Reload-BlueShell
+        Update-BlueShell
+        Update-BlueShell
         Get-Command Get-BlueShellRoot -ErrorAction Stop | Should -Not -BeNullOrEmpty
     }
 

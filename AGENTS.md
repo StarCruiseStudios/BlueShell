@@ -20,7 +20,7 @@
 
 ## Reload and switch (spec §7)
 
-- **Reload-BlueShell**: Idempotent; resets PATH to baseline and re-imports the module. Use after config or script changes.
+- **Update-BlueShell** (alias **Reload-BlueShell**): Idempotent; resets PATH to baseline and re-imports the module. Use after config or script changes.
 - **Set-BlueShellComponentRoot** – set a component’s path in config and reload.
 - **Switch-BlueShellEnvironment** – apply a preset from presets.json and reload. No git operations.
 

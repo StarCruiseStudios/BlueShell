@@ -137,9 +137,9 @@ Total order: Base env → Base secret → Base bootstrap → Base init → Ext1 
 
 ## 7. Reload and branch/root switching
 
-- **Reload-BlueShell**: Idempotent. Cleans or removes the current module state (e.g. Remove-Module BlueShell), resets `$env:PATH` to a baseline (saved at startup or from config), then re-imports **src/BlueShell.psm1** (so bootstrap runs again: config, four phases for base then extensions). Result: current session has up-to-date functions and env. No interactive prompts; quiet mode applies.
-- **Set-BlueShellComponentRoot**: Updates the config (e.g. for a given component name, set its path) and then calls Reload-BlueShell so the current session sees the change immediately.
-- **Switch-BlueShellEnvironment** (or equivalent): Accepts a preset name; loads that preset from presets.json and applies the paths (e.g. to moduleRoots or session state), then calls Reload-BlueShell. No git operations; only config/preset file and path updates plus reload.
+- **Update-BlueShell** (alias **Reload-BlueShell**): Idempotent. Cleans or removes the current module state (e.g. Remove-Module BlueShell), resets `$env:PATH` to a baseline (saved at startup or from config), then re-imports **src/BlueShell.psm1** (so bootstrap runs again: config, four phases for base then extensions). Result: current session has up-to-date functions and env. No interactive prompts; quiet mode applies. The alias preserves backward compatibility and discoverability.
+- **Set-BlueShellComponentRoot**: Updates the config (e.g. for a given component name, set its path) and then calls Update-BlueShell so the current session sees the change immediately.
+- **Switch-BlueShellEnvironment** (or equivalent): Accepts a preset name; loads that preset from presets.json and applies the paths (e.g. to moduleRoots or session state), then calls Update-BlueShell. No git operations; only config/preset file and path updates plus reload.
 
 ---
 

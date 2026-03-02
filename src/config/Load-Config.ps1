@@ -34,7 +34,7 @@ function Update-BlueShellEnvMirror {
     # Interactive/Quiet: only set if not already set so external scripts can pre-configure
     if (-not (Test-Path 'env:BLUESHELL_INTERACTIVE')) { $env:BLUESHELL_INTERACTIVE = '' }
     if (-not (Test-Path 'env:BLUESHELL_QUIET')) { $env:BLUESHELL_QUIET = '' }
-    # Baseline PATH and psm1 path for Reload-BlueShell (Spec §7)
+    # Baseline PATH and psm1 path for Update-BlueShell / Reload-BlueShell (Spec §7)
     if (-not $env:BLUESHELL_PATH_BASELINE) { $env:BLUESHELL_PATH_BASELINE = $env:PATH }
     $env:BLUESHELL_PSM1_PATH = Join-Path (Get-BlueShellRoot) 'BlueShell.psm1'
 }
