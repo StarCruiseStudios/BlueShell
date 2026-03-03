@@ -1,5 +1,20 @@
 # Interactive.ps1 - Quiet by default, interactive opt-in (Spec §4)
 
+function Test-BlueShellInteractiveHost {
+    <#
+    .SYNOPSIS
+        Returns true when the current host has a UI (e.g. console, VS Code terminal). Used from profile to decide whether to enable interactive mode.
+    #>
+    [CmdletBinding()]
+    param()
+    try {
+        $null = $Host.UI.RawUI
+        return $true
+    } catch {
+        return $false
+    }
+}
+
 function Test-BlueShellInteractive {
     <#
     .SYNOPSIS

@@ -45,4 +45,13 @@ Describe 'T015 Quiet and interactive opt-in' {
         $env:BLUESHELL_INTERACTIVE = 'true'
         Test-BlueShellInteractive | Should -BeFalse
     }
+
+    It 'Test-BlueShellInteractiveHost returns bool (true when host has RawUI)' {
+        Import-Module $psm1Path -Force -Global
+        $result = Test-BlueShellInteractiveHost
+        $result | Should -BeIn @($true, $false)
+        $hasRawUI = $false
+        try { $null = $Host.UI.RawUI; $hasRawUI = $true } catch { }
+        if ($hasRawUI) { $result | Should -BeTrue }
+    }
 }

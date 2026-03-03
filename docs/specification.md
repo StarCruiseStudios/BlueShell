@@ -145,7 +145,7 @@ Total order: Base env → Base secret → Base bootstrap → Base init → Ext1 
 
 ## 8. Setup and orchestrator
 
-- **Base setup** (e.g. **Install-BlueShell** or **Setup-BlueShell**): Ensures PowerShell profile exists; ensures profile loads BlueShell from the current base root (or from **BLUESHELL_ROOT** if set); ensures config directory and config.json exist (create empty or with defaults if missing); idempotent (skip if already configured).
+- **Base setup** (e.g. **Install-BlueShell** or **Setup-BlueShell**): Ensures PowerShell profile exists; ensures profile loads BlueShell from the current base root (or from **BLUESHELL_ROOT** if set); ensures config directory and config.json exist (create empty or with defaults if missing); idempotent (skip if already configured). Profile strategy: **CurrentUserAllHosts** is used to load the module once; **CurrentUserCurrentHost** is used only to enable interactive mode when the host has a UI (e.g. via `Test-BlueShellInteractiveHost`). This avoids loading the module twice when both profiles run in an interactive session.
 - **Per-module setup**: Each module has a setup script (e.g. **Setup-&lt;Module&gt;** or **Install-&lt;Module&gt;**). It ensures the module's root is registered in config (moduleRoots) and optionally registers rules/skills providers; idempotent.
 - **Single entry point**: One command (e.g. **Install-DevEnvironment** or **Initialize-DevEnvironment**) that: (1) ensures base is installed (run base setup), (2) discovers available modules (e.g. from config, or a list, or env **BLUESHELL_MODULES**), (3) for each available module runs that module's setup script. The orchestrator lives in the base and invokes each module's setup by path (from config or discovery).
 
